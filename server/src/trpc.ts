@@ -3,24 +3,17 @@ import { TRPCError, initTRPC } from "@trpc/server";
 import { fileURLToPath } from "url";
 import { dirname, resolve } from "path";
 import { readFile } from "fs/promises";
+import {
+  profileSchema,
+  trainingSessionSchema,
+  appointmentSchema,
+  Profile,
+  TrainingSession,
+  Appointment,
+} from "./schema";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-
-// Define the profile schema
-export const profileSchema = z.object({
-  id: z.string(),
-  email: z.string().email(),
-  firstName: z.string(),
-  lastName: z.string(),
-  phone: z.string(),
-  gender: z.enum(["Male", "Female"]),
-  dob: z.string(),
-  centerName: z.string(),
-  createdAt: z.string(),
-});
-
-export type Profile = z.infer<typeof profileSchema>;
 
 // Initialize tRPC
 const t = initTRPC.create();
@@ -47,6 +40,59 @@ export const router = t.router({
       }
 
       return profileSchema.parse(profile);
+    }),
+  getTrainingSessionsByPlayerId: t.procedure
+    .input(z.object({ playerId: z.string() }))
+    .query(async ({ input }) => {
+      const sessionsPath = resolve(
+        __dirname,
+        "../../data/trainingSessions.json",
+      );
+      const data = await readFile(sessionsPath, "utf-8");
+      const sessions = JSON.parse(data) as TrainingSession[];
+
+      const playerSessions = sessions.filter(
+        (session) => session.playerId === input.playerId,
+      );
+
+      return z.array(trainingSessionSchema).parse(playerSessions);
+    }),
+  getAppointmentsByPlayerId: t.procedure
+    .input(z.object({ playerId: z.string() }))
+    .query(async ({ input }) => {
+      const appointmentsPath = resolve(
+        __dirname,
+        "../../data/appointments.json",
+      );
+      const data = await readFile(appointmentsPath, "utf-8");
+      const appointments = JSON.parse(data) as Appointment[];
+
+      const playerAppointments = appointments.filter(
+        (appointment) => appointment.playerId === input.playerId,
+      );
+
+      return z.array(appointmentSchema).parse(playerAppointments);
+    }),
+  getTrainingSessionById: t.procedure
+    .input(z.object({ sessionId: z.string() }))
+    .query(async ({ input }) => {
+      const sessionsPath = resolve(
+        __dirname,
+        "../../data/trainingSessions.json",
+      );
+      const data = await readFile(sessionsPath, "utf-8");
+      const sessions = JSON.parse(data) as TrainingSession[];
+
+      const session = sessions.find((item) => item.id === input.sessionId);
+
+      if (!session) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Training session not found",
+        });
+      }
+
+      return trainingSessionSchema.parse(session);
     }),
 });
 
