@@ -26,7 +26,7 @@ export default function Header() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="shrink-0">
-            <h1 className="text-2xl font-bold text-green-600">TOCA</h1>
+            <h1 className="text-2xl font-bold text-blue-700">TOCA</h1>
           </div>
 
           {/* Desktop Navigation */}
@@ -36,7 +36,7 @@ export default function Header() {
               variant={isActive("/") ? "secondary" : "ghost"}
               className={
                 isActive("/")
-                  ? "bg-green-100 text-green-700 hover:bg-green-200 cursor-pointer"
+                  ? "bg-blue-100 text-blue-700 hover:bg-blue-200 cursor-pointer"
                   : "cursor-pointer"
               }
             >
@@ -47,7 +47,7 @@ export default function Header() {
               variant={isActive("/about") ? "secondary" : "ghost"}
               className={
                 isActive("/about")
-                  ? "bg-green-100 text-green-700 hover:bg-green-200 cursor-pointer"
+                  ? "bg-blue-100 text-blue-700 hover:bg-blue-200 cursor-pointer"
                   : "cursor-pointer"
               }
             >
@@ -58,7 +58,7 @@ export default function Header() {
               variant={isActive("/profile") ? "secondary" : "ghost"}
               className={
                 isActive("/profile")
-                  ? "bg-green-100 text-green-700 hover:bg-green-200 cursor-pointer"
+                  ? "bg-blue-100 text-blue-700 hover:bg-blue-200 cursor-pointer"
                   : "cursor-pointer"
               }
             >
@@ -95,7 +95,7 @@ export default function Header() {
                 variant={isActive("/") ? "secondary" : "ghost"}
                 className={
                   isActive("/")
-                    ? "bg-green-100 text-green-700 hover:bg-green-200 justify-start"
+                    ? "bg-blue-100 text-blue-700 hover:bg-blue-200 justify-start"
                     : "justify-start"
                 }
               >
@@ -106,7 +106,7 @@ export default function Header() {
                 variant={isActive("/about") ? "secondary" : "ghost"}
                 className={
                   isActive("/about")
-                    ? "bg-green-100 text-green-700 hover:bg-green-200 justify-start"
+                    ? "bg-blue-100 text-blue-700 hover:bg-blue-200 justify-start"
                     : "justify-start"
                 }
               >
@@ -117,7 +117,7 @@ export default function Header() {
                 variant={isActive("/profile") ? "secondary" : "ghost"}
                 className={
                   isActive("/profile")
-                    ? "bg-green-100 text-green-700 hover:bg-green-200 justify-start"
+                    ? "bg-blue-100 text-blue-700 hover:bg-blue-200 justify-start"
                     : "justify-start"
                 }
               >

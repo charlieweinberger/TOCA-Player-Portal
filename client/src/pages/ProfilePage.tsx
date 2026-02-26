@@ -22,7 +22,7 @@ export default function ProfilePage() {
     return (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="flex flex-col items-center justify-center gap-4">
-          <Loader2 className="h-12 w-12 animate-spin text-green-600" />
+          <Loader2 className="h-12 w-12 animate-spin text-blue-600" />
           <p className="text-gray-600">Loading profile...</p>
         </div>
       </div>
@@ -65,7 +65,7 @@ export default function ProfilePage() {
           <Card className="p-6">
             {/* Header with name and avatar */}
             <div className="flex items-center gap-6 mb-8 pb-8 border-b">
-              <div className="w-24 h-24 rounded-full bg-green-500 flex items-center justify-center text-white text-4xl font-bold">
+              <div className="w-24 h-24 rounded-full bg-blue-600 flex items-center justify-center text-white text-4xl font-bold">
                 {profile.firstName.charAt(0)}
                 {profile.lastName.charAt(0)}
               </div>
@@ -73,8 +73,8 @@ export default function ProfilePage() {
                 <h2 className="text-3xl font-bold">
                   {profile.firstName} {profile.lastName}
                 </h2>
-                <p className="text-muted-foreground mt-1">{profile.gender}</p>
-                <p className="text-sm text-muted-foreground mt-2">
+                <p className="text-gray-900 mt-1">{profile.gender}</p>
+                <p className="text-sm text-gray-900 mt-2">
                   Age: {age} years old
                 </p>
               </div>
@@ -159,9 +159,9 @@ export default function ProfilePage() {
 
         {/* Sidebar */}
         <div>
-          <Card className="bg-green-50 border-green-200 p-6">
+          <Card className="bg-blue-50 border-blue-200 p-6">
             <div>
-              <h3 className="text-lg font-semibold text-green-900 mb-4">
+              <h3 className="text-lg font-semibold text-blue-900 mb-4">
                 Player ID
               </h3>
               <Badge

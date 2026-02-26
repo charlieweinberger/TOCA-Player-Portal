@@ -35,7 +35,7 @@ export default function TrainingSessionDetailsPage() {
     return (
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="flex flex-col items-center justify-center gap-4">
-          <Loader2 className="h-12 w-12 animate-spin text-green-600" />
+          <Loader2 className="h-12 w-12 animate-spin text-blue-600" />
           <p className="text-gray-600">Loading session details...</p>
         </div>
       </div>
@@ -77,15 +77,15 @@ export default function TrainingSessionDetailsPage() {
       <Card className="p-6">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between mb-6">
           <div>
-            <p className="text-sm uppercase tracking-wide text-green-600 font-semibold">
+            <p className="text-sm uppercase tracking-wide text-blue-700 font-semibold">
               Training Session
             </p>
             <h1 className="text-3xl font-bold mt-2">{session.trainerName}</h1>
-            <p className="text-muted-foreground mt-2">
+            <p className="text-gray-900 mt-2">
               {formatDateTime(session.startTime)}
             </p>
           </div>
-          <Badge className="bg-green-50 text-green-800">
+          <Badge className="bg-blue-50 text-blue-800">
             Duration: {durationHours.toFixed(1)} hrs
           </Badge>
         </div>

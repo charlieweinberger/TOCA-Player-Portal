@@ -68,7 +68,7 @@ export default function HomePage() {
     return (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="flex flex-col items-center justify-center gap-4">
-          <Loader2 className="h-12 w-12 animate-spin text-green-600" />
+          <Loader2 className="h-12 w-12 animate-spin text-blue-600" />
           <p className="text-gray-600">Loading your training data...</p>
         </div>
       </div>
@@ -94,7 +94,7 @@ export default function HomePage() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between mb-10">
         <div>
-          <p className="text-sm uppercase tracking-wide text-green-600 font-semibold">
+          <p className="text-sm uppercase tracking-wide text-blue-700 font-semibold">
             Player Home
           </p>
           <h1 className="text-4xl font-bold text-gray-900 mt-2">
@@ -115,13 +115,13 @@ export default function HomePage() {
                   <CardTitle className="text-2xl">
                     Past Training Sessions
                   </CardTitle>
-                  <CardDescription>
+                  <CardDescription className="text-gray-900">
                     Click a session to view performance details.
                   </CardDescription>
                 </div>
                 <Badge
                   variant="secondary"
-                  className="bg-green-50 text-green-700"
+                  className="bg-blue-50 text-blue-700"
                 >
                   {pastSessions.length} total
                 </Badge>
@@ -139,16 +139,16 @@ export default function HomePage() {
                     to={`/sessions/${session.id}`}
                     className="block"
                   >
-                    <Card className="hover:border-green-500 hover:shadow-md transition p-4">
+                    <Card className="hover:border-blue-400 hover:shadow-md transition p-4">
                       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                         <div>
-                          <p className="text-sm text-muted-foreground">
+                          <p className="text-sm text-gray-900">
                             Trainer
                           </p>
-                          <p className="text-lg font-semibold">
+                          <p className="text-lg font-semibold text-blue-700">
                             {session.trainerName}
                           </p>
-                          <p className="text-sm text-muted-foreground mt-1">
+                          <p className="text-sm text-gray-900 mt-1">
                             {formatDateTime(session.startTime)}
                           </p>
                         </div>
@@ -191,7 +191,7 @@ export default function HomePage() {
           <Card>
             <CardHeader>
               <CardTitle className="text-2xl">Upcoming Appointments</CardTitle>
-              <CardDescription>
+              <CardDescription className="text-gray-900">
                 Keep an eye on your next sessions.
               </CardDescription>
             </CardHeader>
@@ -208,14 +208,14 @@ export default function HomePage() {
                 {upcomingAppointments.map((appointment) => (
                   <Card key={appointment.id} className="p-4">
                     <div>
-                      <p className="text-sm text-muted-foreground">Trainer</p>
-                      <p className="text-lg font-semibold">
+                      <p className="text-sm text-gray-900">Trainer</p>
+                      <p className="text-lg font-semibold text-blue-600">
                         {appointment.trainerName}
                       </p>
-                      <p className="text-sm text-muted-foreground mt-2">
+                      <p className="text-sm text-gray-900 mt-2">
                         {formatDateTime(appointment.startTime)}
                       </p>
-                      <p className="text-xs text-muted-foreground mt-1">
+                      <p className="text-xs text-gray-900 mt-1">
                         Ends {formatDateTime(appointment.endTime)}
                       </p>
                     </div>
