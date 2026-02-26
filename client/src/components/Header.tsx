@@ -81,7 +81,11 @@ export default function Header() {
               onClick={() => setIsMenuOpen((open) => !open)}
               aria-label="Toggle menu"
             >
-              {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              {isMenuOpen ? (
+                <X className="h-5 w-5" />
+              ) : (
+                <Menu className="h-5 w-5" />
+              )}
             </Button>
           </div>
         </div>
@@ -123,7 +127,11 @@ export default function Header() {
               >
                 Profile
               </Button>
-              <Button onClick={handleLogout} variant="destructive" className="justify-start">
+              <Button
+                onClick={handleLogout}
+                variant="destructive"
+                className="justify-start"
+              >
                 Logout
               </Button>
             </div>

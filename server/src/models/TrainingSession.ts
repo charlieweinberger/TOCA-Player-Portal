@@ -35,4 +35,7 @@ const TrainingSessionSchema = new Schema<TrainingSessionDocument>(
 
 export const TrainingSessionModel =
   mongoose.models.TrainingSession ||
-  mongoose.model<TrainingSessionDocument>("TrainingSession", TrainingSessionSchema);
+  mongoose.model<TrainingSessionDocument>(
+    "TrainingSession",
+    TrainingSessionSchema,
+  );

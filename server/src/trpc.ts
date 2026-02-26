@@ -6,17 +6,17 @@ import {
   trainingSessionSchema,
   appointmentSchema,
 } from "./schema";
-import {
-  ProfileModel,
-  TrainingSessionModel,
-  AppointmentModel,
-} from "./models";
+import { ProfileModel, TrainingSessionModel, AppointmentModel } from "./models";
 
 type Context = {
   userId: string | null;
 };
 
-export async function createContext({ req }: { req: Request }): Promise<Context> {
+export async function createContext({
+  req,
+}: {
+  req: Request;
+}): Promise<Context> {
   const authHeader = req.headers.get("authorization");
   const token = authHeader?.startsWith("Bearer ")
     ? authHeader.slice("Bearer ".length)
@@ -56,7 +56,8 @@ const requireAuth = t.middleware(({ ctx, next }) => {
 
 const protectedProcedure = t.procedure.use(requireAuth);
 
-const escapeRegExp = (value: string) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+const escapeRegExp = (value: string) =>
+  value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
 async function resolveProfileForUser(userId: string) {
   const existing = await ProfileModel.findOne({ clerkUserId: userId }).lean();

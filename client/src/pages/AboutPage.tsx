@@ -88,7 +88,7 @@ export default function AboutPage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Kids Classes */}
           <Card className="p-6">
-              <h3 className="text-2xl font-bold text-blue-700 mb-3">
+            <h3 className="text-2xl font-bold text-blue-700 mb-3">
               Kids Soccer Classes
             </h3>
             <p className="text-gray-900 mb-4">
@@ -107,7 +107,7 @@ export default function AboutPage() {
 
           {/* Private Training */}
           <Card className="p-6">
-              <h3 className="text-2xl font-bold text-blue-700 mb-3">
+            <h3 className="text-2xl font-bold text-blue-700 mb-3">
               Private Training
             </h3>
             <p className="text-gray-900 mb-4">
@@ -125,7 +125,7 @@ export default function AboutPage() {
 
           {/* Adult Programs */}
           <Card className="p-6">
-              <h3 className="text-2xl font-bold text-blue-700 mb-3">
+            <h3 className="text-2xl font-bold text-blue-700 mb-3">
               Adult Programs
             </h3>
             <p className="text-gray-900 mb-4">
@@ -136,9 +136,7 @@ export default function AboutPage() {
               a seasoned player or new to the game, enjoy casual but competitive
               soccer with ample playing time for everyone.
             </p>
-            <p className="text-sm text-gray-900">
-              All skill levels welcome!
-            </p>
+            <p className="text-sm text-gray-900">All skill levels welcome!</p>
           </Card>
         </div>
       </div>

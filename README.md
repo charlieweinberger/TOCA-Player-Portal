@@ -9,7 +9,7 @@ Player portal with authenticated access to profiles, training sessions, and appo
 - Vite
 - TanStack Query + tRPC client
 - Clerk (auth)
-- Tailwind CSS
+- Tailwind CSS + shadcn/ui
 
 **Server**
 - Node.js + TypeScript
@@ -25,8 +25,19 @@ Player portal with authenticated access to profiles, training sessions, and appo
 ├── client/                 # React app (Vite)
 │   ├── src/
 │   │   ├── components/      # Shared UI components
+│   │   │   ├── ui/          # shadcn/ui components
+│   │   │   ├── Header.tsx   # Navigation header with mobile menu
+│   │   │   └── ProtectedRoute.tsx
 │   │   ├── pages/           # Route pages
-│   │   ├── lib/             # tRPC client + utilities
+│   │   │   ├── HomePage.tsx             # Dashboard with sessions & appointments
+│   │   │   ├── ProfilePage.tsx          # User profile with nested cards
+│   │   │   ├── AboutPage.tsx            # TOCA info and programs
+│   │   │   ├── TrainingSessionDetailsPage.tsx  # Session stats detail
+│   │   │   └── SignInPage.tsx
+│   │   ├── lib/             # Utilities
+│   │   │   ├── trpc.ts            # tRPC client
+│   │   │   ├── utils.ts           # Tailwind helpers
+│   │   │   └── trainingStats.ts   # Color-coded performance metrics
 │   │   ├── App.tsx          # App routes
 │   │   └── main.tsx         # App entry + Clerk provider
 │   └── public/
@@ -87,4 +98,3 @@ The MongoDB database has already been seeded with the JSON data in [data/](data/
 | Sabrina Williams | sabrina.williams@example.com | SabrinaWilliams |
 | Morgan Johnson | morgan.johnson@example.com | MorganJohnson |
 | Alex Jones | alex.jones@example.com | AlexJonesTOCA |
-

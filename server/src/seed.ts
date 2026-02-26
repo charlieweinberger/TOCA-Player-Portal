@@ -22,9 +22,8 @@ async function seed() {
   const trainingSessions = await loadJson<Record<string, unknown>[]>(
     "trainingSessions.json",
   );
-  const appointments = await loadJson<Record<string, unknown>[]>(
-    "appointments.json",
-  );
+  const appointments =
+    await loadJson<Record<string, unknown>[]>("appointments.json");
 
   if (profiles.length) {
     const profileOps = profiles.map((profile) => {

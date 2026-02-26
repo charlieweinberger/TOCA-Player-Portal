@@ -6,9 +6,11 @@ import type { AppRouter } from "../../../server/src/trpc";
 export const queryClient = new QueryClient();
 
 const getClerkToken = async () => {
-  const clerk = (window as Window & {
-    Clerk?: { session?: { getToken: () => Promise<string | null> } };
-  }).Clerk;
+  const clerk = (
+    window as Window & {
+      Clerk?: { session?: { getToken: () => Promise<string | null> } };
+    }
+  ).Clerk;
 
   if (!clerk?.session) {
     return null;

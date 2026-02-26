@@ -21,25 +21,25 @@ function App() {
         path="/sign-in/*"
         element={
           <div className="flex items-center justify-center min-h-screen bg-gray-50">
-            <SignIn 
+            <SignIn
               routing="hash"
               signUpUrl="/sign-up"
               fallbackRedirectUrl="/"
             />
           </div>
-        } 
+        }
       />
       <Route
         path="/sign-up/*"
         element={
           <div className="flex items-center justify-center min-h-screen bg-gray-50">
-            <SignUp 
+            <SignUp
               routing="hash"
               signInUrl="/sign-in"
               fallbackRedirectUrl="/"
             />
           </div>
-        } 
+        }
       />
       {routes.map((route) => (
         <Route

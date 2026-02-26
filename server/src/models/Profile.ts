@@ -32,4 +32,5 @@ const ProfileSchema = new Schema<ProfileDocument>(
 );
 
 export const ProfileModel =
-  mongoose.models.Profile || mongoose.model<ProfileDocument>("Profile", ProfileSchema);
+  mongoose.models.Profile ||
+  mongoose.model<ProfileDocument>("Profile", ProfileSchema);

@@ -103,31 +103,47 @@ export default function TrainingSessionDetailsPage() {
             <p className="text-xs uppercase tracking-wide text-muted-foreground">
               Score
             </p>
-            <p className={`text-2xl font-bold ${getScoreColor(session.score)}`}>{session.score.toFixed(1)}</p>
+            <p className={`text-2xl font-bold ${getScoreColor(session.score)}`}>
+              {session.score.toFixed(1)}
+            </p>
           </Card>
           <Card className="bg-gray-50 p-4">
             <p className="text-xs uppercase tracking-wide text-muted-foreground">
               Number of Balls
             </p>
-            <p className={`text-2xl font-bold ${getBallsColor(session.numberOfBalls)}`}>{session.numberOfBalls}</p>
+            <p
+              className={`text-2xl font-bold ${getBallsColor(session.numberOfBalls)}`}
+            >
+              {session.numberOfBalls}
+            </p>
           </Card>
           <Card className="bg-gray-50 p-4">
             <p className="text-xs uppercase tracking-wide text-muted-foreground">
               Best Streak
             </p>
-            <p className={`text-2xl font-bold ${getStreakColor(session.bestStreak)}`}>{session.bestStreak}</p>
+            <p
+              className={`text-2xl font-bold ${getStreakColor(session.bestStreak)}`}
+            >
+              {session.bestStreak}
+            </p>
           </Card>
           <Card className="bg-gray-50 p-4">
             <p className="text-xs uppercase tracking-wide text-muted-foreground">
               Goals
             </p>
-            <p className={`text-2xl font-bold ${getGoalsColor(session.numberOfGoals)}`}>{session.numberOfGoals}</p>
+            <p
+              className={`text-2xl font-bold ${getGoalsColor(session.numberOfGoals)}`}
+            >
+              {session.numberOfGoals}
+            </p>
           </Card>
           <Card className="bg-gray-50 p-4">
             <p className="text-xs uppercase tracking-wide text-muted-foreground">
               Avg Speed of Play
             </p>
-            <p className={`text-2xl font-bold ${getSpeedOfPlayColor(session.avgSpeedOfPlay)}`}>
+            <p
+              className={`text-2xl font-bold ${getSpeedOfPlayColor(session.avgSpeedOfPlay)}`}
+            >
               {session.avgSpeedOfPlay.toFixed(2)}
             </p>
           </Card>
@@ -135,7 +151,11 @@ export default function TrainingSessionDetailsPage() {
             <p className="text-xs uppercase tracking-wide text-muted-foreground">
               Exercises Completed
             </p>
-            <p className={`text-2xl font-bold ${getExercisesColor(session.numberOfExercises)}`}>{session.numberOfExercises}</p>
+            <p
+              className={`text-2xl font-bold ${getExercisesColor(session.numberOfExercises)}`}
+            >
+              {session.numberOfExercises}
+            </p>
           </Card>
         </div>
       </Card>

@@ -124,10 +124,7 @@ export default function HomePage() {
                     Click a session to view performance details.
                   </CardDescription>
                 </div>
-                <Badge
-                  variant="secondary"
-                  className="bg-blue-50 text-blue-700"
-                >
+                <Badge variant="secondary" className="bg-blue-50 text-blue-700">
                   {pastSessions.length} total
                 </Badge>
               </div>
@@ -147,9 +144,7 @@ export default function HomePage() {
                     <Card className="hover:border-blue-400 hover:shadow-md transition p-4">
                       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                         <div>
-                          <p className="text-sm text-gray-900">
-                            Trainer
-                          </p>
+                          <p className="text-sm text-gray-900">Trainer</p>
                           <p className="text-lg font-semibold text-blue-700">
                             {session.trainerName}
                           </p>
@@ -162,7 +157,9 @@ export default function HomePage() {
                             <p className="text-xs uppercase tracking-wide text-muted-foreground">
                               Score
                             </p>
-                            <p className={`font-semibold ${getScoreColor(session.score)}`}>
+                            <p
+                              className={`font-semibold ${getScoreColor(session.score)}`}
+                            >
                               {session.score.toFixed(1)}
                             </p>
                           </div>
@@ -170,7 +167,9 @@ export default function HomePage() {
                             <p className="text-xs uppercase tracking-wide text-muted-foreground">
                               Goals
                             </p>
-                            <p className={`font-semibold ${getGoalsColor(session.numberOfGoals)}`}>
+                            <p
+                              className={`font-semibold ${getGoalsColor(session.numberOfGoals)}`}
+                            >
                               {session.numberOfGoals}
                             </p>
                           </div>
@@ -178,7 +177,9 @@ export default function HomePage() {
                             <p className="text-xs uppercase tracking-wide text-muted-foreground">
                               Best Streak
                             </p>
-                            <p className={`font-semibold ${getStreakColor(session.bestStreak)}`}>
+                            <p
+                              className={`font-semibold ${getStreakColor(session.bestStreak)}`}
+                            >
                               {session.bestStreak}
                             </p>
                           </div>
