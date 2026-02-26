@@ -64,7 +64,7 @@ export default function ProfilePage() {
         <div className="lg:col-span-2">
           <Card className="p-6">
             {/* Header with name and avatar */}
-            <div className="flex items-center gap-6 mb-8 pb-8 border-b">
+            <div className="flex items-center gap-6 mb-2 pb-8 border-b">
               <div className="w-24 h-24 rounded-full bg-blue-600 flex items-center justify-center text-white text-4xl font-bold">
                 {profile.firstName.charAt(0)}
                 {profile.lastName.charAt(0)}
@@ -80,7 +80,7 @@ export default function ProfilePage() {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {/* Contact Information */}
               <Card className="p-4">
                 <h3 className="text-lg font-semibold mb-3">
