@@ -10,7 +10,7 @@ export default function TrainingSessionDetailsPage() {
     isPending,
     error,
   } = useQuery({
-    ...trpc.getTrainingSessionById.queryOptions({
+    ...trpc.getMyTrainingSessionById.queryOptions({
       sessionId: sessionId ?? "",
     }),
     enabled: Boolean(sessionId),

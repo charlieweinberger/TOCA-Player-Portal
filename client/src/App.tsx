@@ -1,5 +1,5 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import SignInPage from "./pages/SignInPage";
+import { SignIn, SignUp } from "@clerk/clerk-react";
 import HomePage from "./pages/HomePage";
 import AboutPage from "./pages/AboutPage";
 import ProfilePage from "./pages/ProfilePage";
@@ -17,7 +17,30 @@ function App() {
 
   return (
     <Routes>
-      <Route path="/sign-in" element={<SignInPage />} />
+      <Route
+        path="/sign-in/*"
+        element={
+          <div className="flex items-center justify-center min-h-screen bg-gray-50">
+            <SignIn 
+              routing="hash"
+              signUpUrl="/sign-up"
+              fallbackRedirectUrl="/"
+            />
+          </div>
+        } 
+      />
+      <Route
+        path="/sign-up/*"
+        element={
+          <div className="flex items-center justify-center min-h-screen bg-gray-50">
+            <SignUp 
+              routing="hash"
+              signInUrl="/sign-in"
+              fallbackRedirectUrl="/"
+            />
+          </div>
+        } 
+      />
       {routes.map((route) => (
         <Route
           key={route.path}

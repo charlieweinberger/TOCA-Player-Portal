@@ -1,14 +1,13 @@
 import { useNavigate, useLocation } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
+import { useClerk } from "@clerk/clerk-react";
 
 export default function Header() {
-  const { logout } = useAuth();
+  const { signOut } = useClerk();
   const navigate = useNavigate();
   const location = useLocation();
 
-  const handleLogout = () => {
-    logout();
-    navigate("/sign-in");
+  const handleLogout = async () => {
+    await signOut({ redirectUrl: "/sign-in" });
   };
 
   const isActive = (path: string) => location.pathname === path;
@@ -26,7 +25,7 @@ export default function Header() {
           <nav className="flex-1 flex justify-center gap-8 ml-16">
             <button
               onClick={() => navigate("/")}
-              className={`px-4 py-2 rounded-md transition ${
+              className={`px-4 py-2 rounded-md transition cursor-pointer ${
                 isActive("/")
                   ? "bg-green-100 text-green-700 font-medium"
                   : "text-gray-600 hover:text-gray-900"
@@ -36,7 +35,7 @@ export default function Header() {
             </button>
             <button
               onClick={() => navigate("/about")}
-              className={`px-4 py-2 rounded-md transition ${
+              className={`px-4 py-2 rounded-md transition cursor-pointer ${
                 isActive("/about")
                   ? "bg-green-100 text-green-700 font-medium"
                   : "text-gray-600 hover:text-gray-900"
@@ -46,7 +45,7 @@ export default function Header() {
             </button>
             <button
               onClick={() => navigate("/profile")}
-              className={`px-4 py-2 rounded-md transition ${
+              className={`px-4 py-2 rounded-md transition cursor-pointer ${
                 isActive("/profile")
                   ? "bg-green-100 text-green-700 font-medium"
                   : "text-gray-600 hover:text-gray-900"
@@ -59,7 +58,7 @@ export default function Header() {
           {/* Logout Button */}
           <button
             onClick={handleLogout}
-            className="bg-red-600 text-white px-6 py-2 rounded-md hover:bg-red-700 transition font-medium"
+            className="bg-red-600 text-white px-6 py-2 rounded-md hover:bg-red-700 transition font-medium cursor-pointer"
           >
             Logout
           </button>

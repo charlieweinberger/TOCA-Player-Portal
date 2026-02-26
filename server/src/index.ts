@@ -1,8 +1,10 @@
+import "dotenv/config";
 import { serve } from "@hono/node-server";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { trpcServer } from "@hono/trpc-server";
-import { router } from "./trpc";
+import { router, createContext } from "./trpc";
+import { connectToDatabase } from "./db";
 
 const app = new Hono();
 
@@ -12,7 +14,7 @@ app.use(
   cors({
     origin: "http://localhost:5173",
     allowMethods: ["GET", "POST", "OPTIONS"],
-    allowHeaders: ["Content-Type"],
+    allowHeaders: ["Content-Type", "Authorization"],
   }),
 );
 
@@ -21,6 +23,7 @@ app.use(
   "/trpc/*",
   trpcServer({
     router,
+    createContext,
   }),
 );
 
@@ -31,10 +34,19 @@ app.get("/health", (c) => {
 
 const PORT = 3000;
 
-console.log(`🚀 Server running at http://localhost:${PORT}`);
-console.log(`📡 tRPC endpoint at http://localhost:${PORT}/trpc`);
+async function startServer() {
+  await connectToDatabase();
 
-serve({
-  fetch: app.fetch,
-  port: PORT,
+  console.log(`🚀 Server running at http://localhost:${PORT}`);
+  console.log(`📡 tRPC endpoint at http://localhost:${PORT}/trpc`);
+
+  serve({
+    fetch: app.fetch,
+    port: PORT,
+  });
+}
+
+startServer().catch((error) => {
+  console.error("Failed to start server:", error);
+  process.exit(1);
 });

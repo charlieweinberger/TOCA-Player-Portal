@@ -1,3 +1,7 @@
+// LEGACY FILE - UNUSED
+// This file is no longer used after migrating to Clerk authentication.
+// Safe to delete.
+
 import { useState } from "react";
 import { AuthContext } from "./authContext";
 

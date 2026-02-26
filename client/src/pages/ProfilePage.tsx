@@ -1,17 +1,17 @@
-import { useAuth } from "../hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
+import { useUser } from "@clerk/clerk-react";
 import { trpc } from "../lib/trpc";
 
 export default function ProfilePage() {
-  const { email } = useAuth();
+  const { user } = useUser();
 
   const {
     data: profile,
     isPending,
     error,
   } = useQuery({
-    ...trpc.getProfileByEmail.queryOptions({ email: email ?? "" }),
-    enabled: Boolean(email),
+    ...trpc.getMyProfile.queryOptions(),
+    enabled: Boolean(user),
   });
 
   if (isPending) {
@@ -46,7 +46,7 @@ export default function ProfilePage() {
             Profile Not Found
           </h2>
           <p className="text-yellow-700">
-            No profile information available for {email}
+            No profile information available for your account.
           </p>
         </div>
       </div>

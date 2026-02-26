@@ -1,32 +1,28 @@
 import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { useAuth } from "../hooks/useAuth";
+import { useUser } from "@clerk/clerk-react";
 import { trpc } from "../lib/trpc";
 
 export default function HomePage() {
-  const { email } = useAuth();
+  const { user } = useUser();
 
   const {
     data: profile,
     isPending: isProfilePending,
     error: profileError,
   } = useQuery({
-    ...trpc.getProfileByEmail.queryOptions({ email: email ?? "" }),
-    enabled: Boolean(email),
+    ...trpc.getMyProfile.queryOptions(),
+    enabled: Boolean(user),
   });
-
-  const playerId = profile?.id;
 
   const {
     data: trainingSessions,
     isPending: isSessionsPending,
     error: sessionsError,
   } = useQuery({
-    ...trpc.getTrainingSessionsByPlayerId.queryOptions({
-      playerId: playerId ?? "",
-    }),
-    enabled: Boolean(playerId),
+    ...trpc.getMyTrainingSessions.queryOptions(),
+    enabled: Boolean(profile),
   });
 
   const {
@@ -34,10 +30,8 @@ export default function HomePage() {
     isPending: isAppointmentsPending,
     error: appointmentsError,
   } = useQuery({
-    ...trpc.getAppointmentsByPlayerId.queryOptions({
-      playerId: playerId ?? "",
-    }),
-    enabled: Boolean(playerId),
+    ...trpc.getMyAppointments.queryOptions(),
+    enabled: Boolean(profile),
   });
 
   const timeSort = (a: { startTime: string }, b: { startTime: string }) =>
@@ -61,7 +55,7 @@ export default function HomePage() {
       minute: "2-digit",
     });
 
-  if (isProfilePending || (playerId && isSessionsPending)) {
+  if (isProfilePending || (profile && isSessionsPending)) {
     return (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="text-center">
@@ -104,7 +98,9 @@ export default function HomePage() {
         </div>
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-4">
           <p className="text-sm text-gray-500">Signed in as</p>
-          <p className="font-semibold text-gray-900">{email}</p>
+          <p className="font-semibold text-gray-900">
+            {user?.primaryEmailAddress?.emailAddress ?? ""}
+          </p>
         </div>
       </div>
 

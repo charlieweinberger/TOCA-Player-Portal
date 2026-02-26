@@ -1,89 +1,129 @@
 import { z } from "zod";
 import { TRPCError, initTRPC } from "@trpc/server";
-import { fileURLToPath } from "url";
-import { dirname, resolve } from "path";
-import { readFile } from "fs/promises";
+import { createClerkClient, verifyToken } from "@clerk/backend";
 import {
   profileSchema,
   trainingSessionSchema,
   appointmentSchema,
-  Profile,
-  TrainingSession,
-  Appointment,
 } from "./schema";
+import {
+  ProfileModel,
+  TrainingSessionModel,
+  AppointmentModel,
+} from "./models";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+type Context = {
+  userId: string | null;
+};
 
-// Initialize tRPC
-const t = initTRPC.create();
+export async function createContext({ req }: { req: Request }): Promise<Context> {
+  const authHeader = req.headers.get("authorization");
+  const token = authHeader?.startsWith("Bearer ")
+    ? authHeader.slice("Bearer ".length)
+    : null;
+
+  if (!token) {
+    return { userId: null };
+  }
+
+  try {
+    const { sub } = await verifyToken(token, {
+      secretKey: process.env.CLERK_SECRET_KEY,
+    });
+
+    return { userId: sub ?? null };
+  } catch {
+    return { userId: null };
+  }
+}
+
+const clerkClient = createClerkClient({
+  secretKey: process.env.CLERK_SECRET_KEY,
+});
+
+const t = initTRPC.context<Context>().create();
+
+const requireAuth = t.middleware(({ ctx, next }) => {
+  if (!ctx.userId) {
+    throw new TRPCError({
+      code: "UNAUTHORIZED",
+      message: "Authentication required",
+    });
+  }
+
+  return next({ ctx: { ...ctx, userId: ctx.userId } });
+});
+
+const protectedProcedure = t.procedure.use(requireAuth);
+
+const escapeRegExp = (value: string) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+async function resolveProfileForUser(userId: string) {
+  const existing = await ProfileModel.findOne({ clerkUserId: userId }).lean();
+  if (existing) {
+    return existing;
+  }
+
+  const user = await clerkClient.users.getUser(userId);
+  const email =
+    user.primaryEmailAddress?.emailAddress ??
+    user.emailAddresses.find(
+      (address: { id: string; emailAddress: string }) =>
+        address.id === user.primaryEmailAddressId,
+    )?.emailAddress ??
+    user.emailAddresses[0]?.emailAddress;
+
+  if (!email) {
+    throw new TRPCError({
+      code: "FORBIDDEN",
+      message: "No email found for Clerk user",
+    });
+  }
+
+  const match = await ProfileModel.findOne({
+    email: { $regex: new RegExp(`^${escapeRegExp(email)}$`, "i") },
+  });
+
+  if (!match) {
+    throw new TRPCError({
+      code: "NOT_FOUND",
+      message: "Profile not found for this user",
+    });
+  }
+
+  match.clerkUserId = userId;
+  await match.save();
+
+  return match.toObject();
+}
 
 export const router = t.router({
-  // Procedure to get profile by email
-  getProfileByEmail: t.procedure
-    .input(z.object({ email: z.string().email() }))
-    .query(async ({ input }) => {
-      // Read profiles.json directly using Node.js fs
-      const profilesPath = resolve(__dirname, "../../data/profiles.json");
-      const data = await readFile(profilesPath, "utf-8");
-      const profiles = JSON.parse(data);
-
-      const profile = profiles.find(
-        (p: Profile) => p.email.toLowerCase() === input.email.toLowerCase(),
-      );
-
-      if (!profile) {
-        throw new TRPCError({
-          code: "NOT_FOUND",
-          message: "Profile not found",
-        });
-      }
-
-      return profileSchema.parse(profile);
-    }),
-  getTrainingSessionsByPlayerId: t.procedure
-    .input(z.object({ playerId: z.string() }))
-    .query(async ({ input }) => {
-      const sessionsPath = resolve(
-        __dirname,
-        "../../data/trainingSessions.json",
-      );
-      const data = await readFile(sessionsPath, "utf-8");
-      const sessions = JSON.parse(data) as TrainingSession[];
-
-      const playerSessions = sessions.filter(
-        (session) => session.playerId === input.playerId,
-      );
-
-      return z.array(trainingSessionSchema).parse(playerSessions);
-    }),
-  getAppointmentsByPlayerId: t.procedure
-    .input(z.object({ playerId: z.string() }))
-    .query(async ({ input }) => {
-      const appointmentsPath = resolve(
-        __dirname,
-        "../../data/appointments.json",
-      );
-      const data = await readFile(appointmentsPath, "utf-8");
-      const appointments = JSON.parse(data) as Appointment[];
-
-      const playerAppointments = appointments.filter(
-        (appointment) => appointment.playerId === input.playerId,
-      );
-
-      return z.array(appointmentSchema).parse(playerAppointments);
-    }),
-  getTrainingSessionById: t.procedure
+  getMyProfile: protectedProcedure.query(async ({ ctx }) => {
+    const profile = await resolveProfileForUser(ctx.userId);
+    return profileSchema.parse(profile);
+  }),
+  getMyTrainingSessions: protectedProcedure.query(async ({ ctx }) => {
+    const profile = await resolveProfileForUser(ctx.userId);
+    const sessions = await TrainingSessionModel.find({ playerId: profile.id })
+      .sort({ startTime: 1 })
+      .lean();
+    return z.array(trainingSessionSchema).parse(sessions);
+  }),
+  getMyAppointments: protectedProcedure.query(async ({ ctx }) => {
+    const profile = await resolveProfileForUser(ctx.userId);
+    const appointments = await AppointmentModel.find({ playerId: profile.id })
+      .sort({ startTime: 1 })
+      .lean();
+    return z.array(appointmentSchema).parse(appointments);
+  }),
+  getMyTrainingSessionById: protectedProcedure
     .input(z.object({ sessionId: z.string() }))
-    .query(async ({ input }) => {
-      const sessionsPath = resolve(
-        __dirname,
-        "../../data/trainingSessions.json",
-      );
-      const data = await readFile(sessionsPath, "utf-8");
-      const sessions = JSON.parse(data) as TrainingSession[];
-
-      const session = sessions.find((item) => item.id === input.sessionId);
+    .query(async ({ input, ctx }) => {
+      const profile = await resolveProfileForUser(ctx.userId);
+      const session = await TrainingSessionModel.findOne({
+        id: input.sessionId,
+        playerId: profile.id,
+      }).lean();
 
       if (!session) {
         throw new TRPCError({

@@ -1,12 +1,13 @@
 import { Navigate } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
+import { SignedIn, SignedOut } from "@clerk/clerk-react";
 
 export default function ProtectedRoute({ children }: { children: React.ReactNode }) {
-  const { email } = useAuth();
-
-  if (!email) {
-    return <Navigate to="/sign-in" replace />;
-  }
-
-  return <>{children}</>;
+  return (
+    <>
+      <SignedIn>{children}</SignedIn>
+      <SignedOut>
+        <Navigate to="/sign-in" replace />
+      </SignedOut>
+    </>
+  );
 }
