@@ -1,7 +1,8 @@
 import { serve } from "@hono/node-server";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
-import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
+// import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
+import { trpcServer } from "@hono/trpc-server";
 import { router } from "./trpc";
 
 const app = new Hono();
@@ -16,11 +17,10 @@ app.use(
   }),
 );
 
-// tRPC endpoint - use fetch handler
-app.all("/trpc/*", (c) =>
-  fetchRequestHandler({
-    endpoint: "/trpc",
-    req: c.req.raw,
+// tRPC endpoint
+app.use(
+  "/trpc/*",
+  trpcServer({
     router,
   }),
 );
