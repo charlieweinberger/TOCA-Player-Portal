@@ -1,7 +1,6 @@
 import { serve } from "@hono/node-server";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
-// import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
 import { trpcServer } from "@hono/trpc-server";
 import { router } from "./trpc";
 
