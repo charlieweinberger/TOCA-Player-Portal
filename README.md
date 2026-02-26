@@ -3,7 +3,7 @@
 ## To Do
 
 - review all code written by AI
-- ensure data is properly displayed (e.g. upcoming appointments in home page for a specific user ID)
+- ensure data is properly displayed
 - improve UI
   - make less default-shadcn-y
   - improve color palette
