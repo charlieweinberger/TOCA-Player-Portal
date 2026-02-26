@@ -12,6 +12,11 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Loader2 } from "lucide-react";
+import {
+  getScoreColor,
+  getGoalsColor,
+  getStreakColor,
+} from "../lib/trainingStats";
 
 export default function HomePage() {
   const { user } = useUser();
@@ -157,7 +162,7 @@ export default function HomePage() {
                             <p className="text-xs uppercase tracking-wide text-muted-foreground">
                               Score
                             </p>
-                            <p className="font-semibold">
+                            <p className={`font-semibold ${getScoreColor(session.score)}`}>
                               {session.score.toFixed(1)}
                             </p>
                           </div>
@@ -165,7 +170,7 @@ export default function HomePage() {
                             <p className="text-xs uppercase tracking-wide text-muted-foreground">
                               Goals
                             </p>
-                            <p className="font-semibold">
+                            <p className={`font-semibold ${getGoalsColor(session.numberOfGoals)}`}>
                               {session.numberOfGoals}
                             </p>
                           </div>
@@ -173,7 +178,7 @@ export default function HomePage() {
                             <p className="text-xs uppercase tracking-wide text-muted-foreground">
                               Best Streak
                             </p>
-                            <p className="font-semibold">
+                            <p className={`font-semibold ${getStreakColor(session.bestStreak)}`}>
                               {session.bestStreak}
                             </p>
                           </div>
