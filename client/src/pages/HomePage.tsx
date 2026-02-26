@@ -40,34 +40,16 @@ export default function HomePage() {
     enabled: Boolean(playerId),
   });
 
-  const now = useMemo(() => new Date(), []);
-  const pastSessions = useMemo(() => {
-    if (!trainingSessions) {
-      return [];
-    }
+  const timeSort = (a: { startTime: string }, b: { startTime: string }) =>
+    new Date(a.startTime).getTime() - new Date(b.startTime).getTime();
 
-    return [...trainingSessions]
-      .filter((session) => new Date(session.endTime) < now)
-      .sort(
-        (a, b) =>
-          new Date(b.startTime).getTime() -
-          new Date(a.startTime).getTime(),
-      );
-  }, [trainingSessions, now]);
+  const pastSessions = useMemo(() => {
+    return trainingSessions ? [...trainingSessions].sort(timeSort) : [];
+  }, [trainingSessions]);
 
   const upcomingAppointments = useMemo(() => {
-    if (!appointments) {
-      return [];
-    }
-
-    return [...appointments]
-      .filter((appointment) => new Date(appointment.startTime) > now)
-      .sort(
-        (a, b) =>
-          new Date(a.startTime).getTime() -
-          new Date(b.startTime).getTime(),
-      );
-  }, [appointments, now]);
+    return appointments ? [...appointments].sort(timeSort) : [];
+  }, [appointments]);
 
   const formatDateTime = (value: string) =>
     new Date(value).toLocaleString("en-US", {
