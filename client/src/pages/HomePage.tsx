@@ -16,7 +16,11 @@ import {
   getScoreColor,
   getGoalsColor,
   getStreakColor,
-} from "../lib/trainingStats";
+  formatDateTime,
+  getTrainerRoleColor,
+  getTrainerRole,
+  removeRolePrefix,
+} from "../lib/helpers";
 
 export default function HomePage() {
   const { user } = useUser();
@@ -58,16 +62,6 @@ export default function HomePage() {
   const upcomingAppointments = useMemo(() => {
     return appointments ? [...appointments].sort(timeSort) : [];
   }, [appointments]);
-
-  const formatDateTime = (value: string) =>
-    new Date(value).toLocaleString("en-US", {
-      weekday: "short",
-      month: "short",
-      day: "numeric",
-      year: "numeric",
-      hour: "numeric",
-      minute: "2-digit",
-    });
 
   if (isProfilePending || (profile && isSessionsPending)) {
     return (
@@ -143,16 +137,27 @@ export default function HomePage() {
                   >
                     <Card className="hover:border-blue-400 hover:shadow-md transition p-4">
                       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                        <div>
-                          <p className="text-sm text-gray-900">Trainer</p>
-                          <p className="text-lg font-semibold text-blue-700">
-                            {session.trainerName}
-                          </p>
-                          <p className="text-sm text-gray-900 mt-1">
-                            {formatDateTime(session.startTime)}
-                          </p>
+                        <div className="flex items-center gap-4">
+                          <img
+                            src="/default_pfp.jpg"
+                            alt={session.trainerName}
+                            className="w-12 h-12 rounded-full bg-gray-200 shrink-0"
+                          />
+                          <div>
+                            <p className="text-xs uppercase tracking-wide text-muted-foreground">
+                              {getTrainerRole(session.trainerName)}
+                            </p>
+                            <p
+                              className={`text-lg font-semibold ${getTrainerRoleColor(session.trainerName)}`}
+                            >
+                              {removeRolePrefix(session.trainerName)}
+                            </p>
+                            <p className="text-sm text-gray-900 mt-1">
+                              {formatDateTime(session.startTime)}
+                            </p>
+                          </div>
                         </div>
-                        <div className="flex flex-wrap gap-4 text-sm">
+                        <div className="flex flex-wrap gap-6 mr-2 text-sm">
                           <div>
                             <p className="text-xs uppercase tracking-wide text-muted-foreground">
                               Score
@@ -213,17 +218,28 @@ export default function HomePage() {
               <div className="px-4 space-y-4">
                 {upcomingAppointments.map((appointment) => (
                   <Card key={appointment.id} className="p-4">
-                    <div>
-                      <p className="text-sm text-gray-900">Trainer</p>
-                      <p className="text-lg font-semibold text-blue-600">
-                        {appointment.trainerName}
-                      </p>
-                      <p className="text-sm text-gray-900 mt-2">
-                        {formatDateTime(appointment.startTime)}
-                      </p>
-                      <p className="text-xs text-gray-900 mt-1">
-                        Ends {formatDateTime(appointment.endTime)}
-                      </p>
+                    <div className="flex items-center gap-4">
+                      <img
+                        src="/default_pfp.jpg"
+                        alt={appointment.trainerName}
+                        className="w-12 h-12 rounded-full bg-gray-200 shrink-0"
+                      />
+                      <div>
+                        <p className="text-xs uppercase tracking-wide text-muted-foreground">
+                          {getTrainerRole(appointment.trainerName)}
+                        </p>
+                        <p
+                          className={`text-lg font-semibold ${getTrainerRoleColor(appointment.trainerName)}`}
+                        >
+                          {removeRolePrefix(appointment.trainerName)}
+                        </p>
+                        <p className="text-sm text-gray-900 mt-2">
+                          {formatDateTime(appointment.startTime)}
+                        </p>
+                        <p className="text-xs text-gray-900 mt-1">
+                          Ends {formatDateTime(appointment.endTime)}
+                        </p>
+                      </div>
                     </div>
                   </Card>
                 ))}

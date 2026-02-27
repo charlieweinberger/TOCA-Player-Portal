@@ -13,7 +13,11 @@ import {
   getBallsColor,
   getSpeedOfPlayColor,
   getExercisesColor,
-} from "../lib/trainingStats";
+  formatDateTime,
+  getTrainerRoleColor,
+  getTrainerRole,
+  removeRolePrefix,
+} from "../lib/helpers";
 
 export default function TrainingSessionDetailsPage() {
   const { sessionId } = useParams();
@@ -28,16 +32,6 @@ export default function TrainingSessionDetailsPage() {
     }),
     enabled: Boolean(sessionId),
   });
-
-  const formatDateTime = (value: string) =>
-    new Date(value).toLocaleString("en-US", {
-      weekday: "short",
-      month: "short",
-      day: "numeric",
-      year: "numeric",
-      hour: "numeric",
-      minute: "2-digit",
-    });
 
   if (isPending) {
     return (
@@ -84,14 +78,25 @@ export default function TrainingSessionDetailsPage() {
 
       <Card className="p-6">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between mb-6">
-          <div>
-            <p className="text-sm uppercase tracking-wide text-blue-700 font-semibold">
-              Training Session
-            </p>
-            <h1 className="text-3xl font-bold mt-2">{session.trainerName}</h1>
-            <p className="text-gray-900 mt-2">
-              {formatDateTime(session.startTime)}
-            </p>
+          <div className="flex items-center gap-4">
+            <img
+              src="/default_pfp.jpg"
+              alt={session.trainerName}
+              className="w-16 h-16 rounded-full bg-gray-200 shrink-0"
+            />
+            <div>
+              <p className="text-sm uppercase tracking-wide font-semibold">
+                {getTrainerRole(session.trainerName)}
+              </p>
+              <h1
+                className={`text-3xl font-bold mt-1 ${getTrainerRoleColor(session.trainerName)}`}
+              >
+                {removeRolePrefix(session.trainerName)}
+              </h1>
+              <p className="text-gray-900 mt-2">
+                {formatDateTime(session.startTime)}
+              </p>
+            </div>
           </div>
           <Badge className="bg-blue-50 text-blue-800">
             Duration: {durationHours.toFixed(1)} hrs
@@ -101,7 +106,7 @@ export default function TrainingSessionDetailsPage() {
         <div className="grid grid-cols-1 min-[460px]:grid-cols-2 md:grid-cols-3 gap-4">
           <Card className="bg-gray-50 p-4">
             <p className="text-xs uppercase tracking-wide text-muted-foreground">
-              Score
+              Score 🎯
             </p>
             <p className={`text-2xl font-bold ${getScoreColor(session.score)}`}>
               {session.score.toFixed(1)}
@@ -109,7 +114,7 @@ export default function TrainingSessionDetailsPage() {
           </Card>
           <Card className="bg-gray-50 p-4">
             <p className="text-xs uppercase tracking-wide text-muted-foreground">
-              Number of Balls
+              Number of Balls ⚽
             </p>
             <p
               className={`text-2xl font-bold ${getBallsColor(session.numberOfBalls)}`}
@@ -119,7 +124,7 @@ export default function TrainingSessionDetailsPage() {
           </Card>
           <Card className="bg-gray-50 p-4">
             <p className="text-xs uppercase tracking-wide text-muted-foreground">
-              Best Streak
+              Best Streak 🔥
             </p>
             <p
               className={`text-2xl font-bold ${getStreakColor(session.bestStreak)}`}
@@ -129,7 +134,7 @@ export default function TrainingSessionDetailsPage() {
           </Card>
           <Card className="bg-gray-50 p-4">
             <p className="text-xs uppercase tracking-wide text-muted-foreground">
-              Goals
+              Goals 🥅
             </p>
             <p
               className={`text-2xl font-bold ${getGoalsColor(session.numberOfGoals)}`}
@@ -139,7 +144,7 @@ export default function TrainingSessionDetailsPage() {
           </Card>
           <Card className="bg-gray-50 p-4">
             <p className="text-xs uppercase tracking-wide text-muted-foreground">
-              Avg Speed of Play
+              Avg Speed of Play 💨
             </p>
             <p
               className={`text-2xl font-bold ${getSpeedOfPlayColor(session.avgSpeedOfPlay)}`}
@@ -149,7 +154,7 @@ export default function TrainingSessionDetailsPage() {
           </Card>
           <Card className="bg-gray-50 p-4">
             <p className="text-xs uppercase tracking-wide text-muted-foreground">
-              Exercises Completed
+              Exercises Completed 💪
             </p>
             <p
               className={`text-2xl font-bold ${getExercisesColor(session.numberOfExercises)}`}

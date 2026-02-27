@@ -30,12 +30,17 @@ export default function AboutPage() {
             </p>
           </Card>
         </div>
-        <Card className="bg-gray-100 p-8 flex items-center justify-center">
-          <div className="text-center">
+        <Card className="bg-gray-100 p-8 flex flex-col min-[512px]:flex-row md:flex-col lg:flex-row items-center gap-6">
+          <div className="text-center min-[512px]:flex-1 md:flex-none lg:flex-1">
             <div className="text-5xl font-bold text-blue-700 mb-2">50K+</div>
             <p className="font-medium">Happy Players</p>
             <p className="text-gray-900 mt-4">Across North America</p>
           </div>
+          <img
+            src="/TOCA_about.jpg"
+            alt="Pickup Soccer teammates walking on indoor soccer field"
+            className="flex-1 w-full h-64 object-cover rounded-lg"
+          />
         </Card>
       </div>
 
@@ -88,6 +93,11 @@ export default function AboutPage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Kids Classes */}
           <Card className="p-6">
+            <img
+              src="/TOCA_kids.jpg"
+              alt="Two kids playing soccer on an indoor soccer field"
+              className="w-full h-40 object-cover rounded-lg mb-4"
+            />
             <h3 className="text-2xl font-bold text-blue-700 mb-3">
               Kids Soccer Classes
             </h3>
@@ -107,6 +117,11 @@ export default function AboutPage() {
 
           {/* Private Training */}
           <Card className="p-6">
+            <img
+              src="/TOCA_private.jpg"
+              alt="TOCA Soccer coach training a soccer player with TOCA Touch Trainer"
+              className="w-full h-40 object-cover rounded-lg mb-4"
+            />
             <h3 className="text-2xl font-bold text-blue-700 mb-3">
               Private Training
             </h3>
@@ -125,6 +140,11 @@ export default function AboutPage() {
 
           {/* Adult Programs */}
           <Card className="p-6">
+            <img
+              src="/TOCA_adult.jpg"
+              alt="Two adult pickup soccer players competing on an indoor soccer field"
+              className="w-full h-40 object-cover rounded-lg mb-4"
+            />
             <h3 className="text-2xl font-bold text-blue-700 mb-3">
               Adult Programs
             </h3>

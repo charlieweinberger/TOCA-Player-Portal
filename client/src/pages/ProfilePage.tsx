@@ -65,10 +65,11 @@ export default function ProfilePage() {
           <Card className="p-6">
             {/* Header with name and avatar */}
             <div className="flex items-center gap-6 mb-2 pb-8 border-b">
-              <div className="w-24 h-24 rounded-full bg-blue-600 flex items-center justify-center text-white text-4xl font-bold">
-                {profile.firstName.charAt(0)}
-                {profile.lastName.charAt(0)}
-              </div>
+              <img
+                src="/default_pfp.jpg"
+                alt={`${profile.firstName} ${profile.lastName}`}
+                className="w-24 h-24 rounded-full bg-gray-200 object-cover"
+              />
               <div>
                 <h2 className="text-3xl font-bold">
                   {profile.firstName} {profile.lastName}

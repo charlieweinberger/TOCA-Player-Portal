@@ -33,3 +33,29 @@ export const getExercisesColor = (exercises: number) => {
   if (exercises >= 5) return "text-yellow-600";
   return "text-red-600";
 };
+
+export const formatDateTime = (value: string) =>
+  new Date(value).toLocaleString("en-US", {
+    weekday: "short",
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+  });
+
+export const isCoach = (trainerName: string) => {
+  return trainerName.toLowerCase().startsWith("coach");
+};
+
+export const getTrainerRoleColor = (trainerName: string) => {
+  return isCoach(trainerName) ? "text-blue-600" : "text-cyan-500";
+};
+
+export const getTrainerRole = (trainerName: string) => {
+  return isCoach(trainerName) ? "Coach" : "Trainer";
+};
+
+export const removeRolePrefix = (trainerName: string) => {
+  return trainerName.split(" ").slice(1).join(" ");
+};

@@ -35,7 +35,7 @@ Player portal with authenticated access to profiles, training sessions, and appo
 │   │   ├── lib/                   # Utilities
 │   │   │   ├── trpc.ts            # tRPC client
 │   │   │   ├── utils.ts           # Tailwind helpers
-│   │   │   └── trainingStats.ts   # Color-coded performance metrics
+│   │   │   └── helpers.ts         # Individual helper functions
 │   │   ├── App.tsx                # App routes
 │   │   └── main.tsx               # App entry + Clerk provider
 │   └── public/

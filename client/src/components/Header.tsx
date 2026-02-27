@@ -26,7 +26,11 @@ export default function Header() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="shrink-0">
-            <h1 className="text-2xl font-bold text-blue-700">TOCA</h1>
+            <img
+              src="/TOCA_logo.svg"
+              alt="TOCA Logo"
+              className="h-8 w-auto"
+            />
           </div>
 
           {/* Desktop Navigation */}
