@@ -146,7 +146,7 @@ export default function AboutPage() {
         <h2 className="text-3xl font-bold mb-4">Our Commitment</h2>
         <p className="text-gray-900 text-lg leading-relaxed mb-4">
           At TOCA, we're committed to providing an inclusive environment where
-          every player—regardless of age, experience level, or background—can
+          every player, regardless of age, experience level, or background, can
           improve their soccer skills and develop a lifelong love for the game.
         </p>
         <p className="text-gray-900 text-lg leading-relaxed">

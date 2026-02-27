@@ -5,51 +5,49 @@ Player portal with authenticated access to profiles, training sessions, and appo
 ## Tech Stack
 
 **Client**
-- React 19 + TypeScript
+- React + TypeScript
 - Vite
+- React Router
 - TanStack Query + tRPC client
-- Clerk (auth)
 - Tailwind CSS + shadcn/ui
+- Clerk (authentication)
 
 **Server**
 - Node.js + TypeScript
 - Hono + tRPC server
 - MongoDB + Mongoose
-- Zod for validation
-- dotenv for config
 
 ## Project Structure
 
 ```
 .
-├── client/                 # React app (Vite)
+├── client/     # React app (Vite)
 │   ├── src/
-│   │   ├── components/      # Shared UI components
-│   │   │   ├── ui/          # shadcn/ui components
-│   │   │   ├── Header.tsx   # Navigation header with mobile menu
-│   │   │   └── ProtectedRoute.tsx
-│   │   ├── pages/           # Route pages
-│   │   │   ├── HomePage.tsx             # Dashboard with sessions & appointments
-│   │   │   ├── ProfilePage.tsx          # User profile with nested cards
-│   │   │   ├── AboutPage.tsx            # TOCA info and programs
-│   │   │   ├── TrainingSessionDetailsPage.tsx  # Session stats detail
-│   │   │   └── SignInPage.tsx
-│   │   ├── lib/             # Utilities
+│   │   ├── components/              # Shared UI components
+│   │   │   ├── ui/                  # shadcn/ui components
+│   │   │   ├── Header.tsx           # Navigation header with mobile menu
+│   │   │   └── ProtectedRoute.tsx   # Component wrapper for auth-only pages
+│   │   ├── pages/                               # Route pages
+│   │   │   ├── HomePage.tsx                     # Dashboard with sessions & appointments
+│   │   │   ├── ProfilePage.tsx                  # User profile with nested cards
+│   │   │   ├── AboutPage.tsx                    # TOCA info and programs
+│   │   │   ├── TrainingSessionDetailsPage.tsx   # Session stats detail
+│   │   ├── lib/                   # Utilities
 │   │   │   ├── trpc.ts            # tRPC client
 │   │   │   ├── utils.ts           # Tailwind helpers
 │   │   │   └── trainingStats.ts   # Color-coded performance metrics
-│   │   ├── App.tsx          # App routes
-│   │   └── main.tsx         # App entry + Clerk provider
+│   │   ├── App.tsx                # App routes
+│   │   └── main.tsx               # App entry + Clerk provider
 │   └── public/
-├── server/                 # API server (Hono + tRPC)
+├── server/           # API server (Hono + tRPC)
 │   ├── src/
-│   │   ├── models/          # Mongoose models
-│   │   ├── db.ts            # Mongo connection
-│   │   ├── schema.ts        # Zod schemas
-│   │   ├── trpc.ts          # tRPC router + auth
-│   │   ├── seed.ts          # Seed script
-│   │   └── index.ts         # Server entry
-├── data/                   # Seed JSON data
+│   │   ├── models/     # Mongoose models
+│   │   ├── db.ts       # Mongo connection
+│   │   ├── schema.ts   # Zod schemas
+│   │   ├── trpc.ts     # tRPC router + auth
+│   │   ├── seed.ts     # Seed script
+│   │   └── index.ts    # Server entry
+├── data/             # Seed JSON data
 ├── .gitignore
 └── README.md
 ```
@@ -60,13 +58,13 @@ Create these files locally:
 
 **server/.env**
 ```
-MONGODB_URI=mongodb+srv://<user>:<pass>@<cluster>/<db>
-CLERK_SECRET_KEY=sk_test_...
+MONGODB_URI=...
+CLERK_SECRET_KEY=...
 ```
 
 **client/.env**
 ```
-VITE_CLERK_PUBLISHABLE_KEY=pk_test_...
+VITE_CLERK_PUBLISHABLE_KEY=...
 ```
 
 ## Install & Run (Dev)

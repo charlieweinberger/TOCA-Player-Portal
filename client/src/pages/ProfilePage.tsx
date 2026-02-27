@@ -83,73 +83,82 @@ export default function ProfilePage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {/* Contact Information */}
               <Card className="p-4">
-                <h3 className="text-lg font-semibold mb-3">
-                  Contact Information
-                </h3>
-                <div className="space-y-3">
-                  <div>
-                    <label className="text-sm text-muted-foreground uppercase tracking-wide">
-                      Email
-                    </label>
-                    <p className="font-medium">{profile.email}</p>
-                  </div>
-                  <div>
-                    <label className="text-sm text-muted-foreground uppercase tracking-wide">
-                      Phone
-                    </label>
-                    <p className="font-medium">{profile.phone}</p>
+                <div>
+                  <h3 className="text-lg font-semibold mb-4">
+                    Contact Information
+                  </h3>
+                  <div className="space-y-3">
+                    <div>
+                      <label className="text-sm text-muted-foreground uppercase tracking-wide">
+                        Email
+                      </label>
+                      <p className="font-medium">{profile.email}</p>
+                    </div>
+                    <div>
+                      <label className="text-sm text-muted-foreground uppercase tracking-wide">
+                        Phone
+                      </label>
+                      <p className="font-medium">{profile.phone}</p>
+                    </div>
                   </div>
                 </div>
               </Card>
 
               {/* Personal Information */}
               <Card className="p-4">
-                <h3 className="text-lg font-semibold mb-3">
-                  Personal Information
-                </h3>
-                <div className="space-y-3">
-                  <div>
-                    <label className="text-sm text-muted-foreground uppercase tracking-wide">
-                      Date of Birth
-                    </label>
-                    <p className="font-medium">
-                      {new Date(profile.dob).toLocaleDateString("en-US", {
-                        year: "numeric",
-                        month: "long",
-                        day: "numeric",
-                      })}
-                    </p>
-                  </div>
-                  <div>
-                    <label className="text-sm text-muted-foreground uppercase tracking-wide">
-                      Gender
-                    </label>
-                    <p className="font-medium">{profile.gender}</p>
+                <div>
+                  <h3 className="text-lg font-semibold mb-4">
+                    Personal Information
+                  </h3>
+                  <div className="space-y-3">
+                    <div>
+                      <label className="text-sm text-muted-foreground uppercase tracking-wide">
+                        Date of Birth
+                      </label>
+                      <p className="font-medium">
+                        {new Date(profile.dob).toLocaleDateString("en-US", {
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                        })}
+                      </p>
+                    </div>
+                    <div>
+                      <label className="text-sm text-muted-foreground uppercase tracking-wide">
+                        Gender
+                      </label>
+                      <p className="font-medium">{profile.gender}</p>
+                    </div>
                   </div>
                 </div>
               </Card>
 
               {/* Membership Information */}
               <Card className="p-4">
-                <h3 className="text-lg font-semibold mb-3">Membership</h3>
-                <div className="space-y-3">
-                  <div>
-                    <label className="text-sm text-muted-foreground uppercase tracking-wide">
-                      Training Center
-                    </label>
-                    <p className="font-medium">{profile.centerName}</p>
-                  </div>
-                  <div>
-                    <label className="text-sm text-muted-foreground uppercase tracking-wide">
-                      Member Since
-                    </label>
-                    <p className="font-medium">
-                      {new Date(profile.createdAt).toLocaleDateString("en-US", {
-                        year: "numeric",
-                        month: "long",
-                        day: "numeric",
-                      })}
-                    </p>
+                <div>
+                  <h3 className="text-lg font-semibold mb-4">Membership</h3>
+                  <div className="space-y-3">
+                    <div>
+                      <label className="text-sm text-muted-foreground uppercase tracking-wide">
+                        Training Center
+                      </label>
+                      <p className="font-medium">{profile.centerName}</p>
+                    </div>
+                    <div>
+                      <label className="text-sm text-muted-foreground uppercase tracking-wide">
+                        Member Since
+                      </label>
+                      <p className="font-medium">
+                        {new Date(profile.createdAt).toLocaleDateString(
+                          "en-US",
+                          {
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                          },
+                        )}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </Card>
